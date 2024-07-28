@@ -110,11 +110,11 @@ containerResultsOfSearch.addEventListener('click', function(event){
   divContRes.appendChild(stars)
 
 
-  if(containerAllresults.querySelectorAll('.container__result').length == 3){
-  containerAllresults.querySelector('.container__result').remove()
-  }
+  // if(containerAllresults.querySelectorAll('.container__result').length == 3){
+  // containerAllresults.querySelector('.container__result').remove()
+  // }
   
-  containerAllresults.appendChild(divContRes)
+  containerAllresults.prepend(divContRes)
   
   input.value = null
 
