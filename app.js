@@ -10,7 +10,13 @@ input.addEventListener('click', function(e){
 });
 
 const fetCh = function(inputValue){
-  let responce = fetch(`https://api.github.com/search/repositories?q={${inputValue}}&per_page=5`)
+  if(inputValue == '' || inputValue.trim() == ''){
+    if(containerResultsOfSearch.querySelectorAll('.container__searched').length != 0){
+      containerResultsOfSearch.querySelectorAll('.container__searched').forEach(item => item.remove())
+    }
+    return;
+  }
+  let responce = fetch(`https://api.github.com/search/repositories?q=${inputValue}&per_page=5`)
     .then((responce) => responce.json())
     .then(responseJson => responseJson.items)
     .then( arrayOfItems => {
@@ -36,15 +42,12 @@ const fetCh = function(inputValue){
           div.appendChild(p2)
 
 
-        console.log(arrayOfItems)
+        
         containerResultsOfSearch.appendChild(div) 
          
         }
         
     }).catch( error => console.log(error))
-    
-
-    
     
 
 }
@@ -88,7 +91,7 @@ containerResultsOfSearch.addEventListener('click', function(event){
   
   let divContRes = document.createElement('div')
   divContRes.classList.add('container__result')
-  let cross = document.createElement('div')
+  let cross = document.createElement('button')
   cross.classList.add('container__cross')
   divContRes.appendChild(cross)
 
@@ -119,7 +122,7 @@ containerResultsOfSearch.addEventListener('click', function(event){
   input.value = null
 
   while (containerResultsOfSearch.firstChild) {
-    //Список является ссылкой, то есть он будет переиндексирован перед каждым вызовом
+   
     containerResultsOfSearch.removeChild(containerResultsOfSearch.firstChild)
   }
 
